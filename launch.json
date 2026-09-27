@@ -1,0 +1,22 @@
+{
+  "kind": "evm_project",
+  "token": {
+    "contract": "LaunchToken",
+    "name": "Keyring",
+    "symbol": "KEYR",
+    "decimals": 18
+  },
+  "contracts": [
+    {
+      "contract": "KeyringMultisig",
+      "constructorArgs": ["$token"]
+    }
+  ],
+  "pool": {
+    "pairedCurrency": "0x0000000000000000000000000000000000000000",
+    "fee": 3000,
+    "tickSpacing": 60,
+    "initialPrice": "79228162514264337593543950336"
+  },
+  "notes": "Keyring (KEYR) launch on Sepolia. LaunchToken (src/LaunchToken.sol) is a fixed-supply ERC-20 with no constructor arguments, 18 decimals, and 1,000,000,000 KEYR minted once to the deploying factory; it has no mint or admin functions. KeyringMultisig (src/KeyringMultisig.sol) is the single application contract: its only constructor argument is the KEYR token address ($token), stored immutable and exposed as token(). It keeps many 2-of-3 wallets as ids in its own storage with separate per-wallet ETH and KEYR ledgers, deploys no contracts, holds nothing at deploy, and has no owner, admin, pause, upgrade, receive/fallback, or rescue path, so no $owner argument is used. The constructor is nonpayable and makes no token movement; no initialization calls are required. KEYR for deposits comes from swapping Sepolia ETH in the native-ETH launch pool the factory seeds (no hook). KEYR sent directly to KeyringMultisig without depositToken is untracked and unrecoverable."
+}
